@@ -44,7 +44,7 @@ GitHub Desktop is a program that allows you to easily using Git and GitHub for s
 
 You can install GitHub Desktop using [the link to download on their website](https://desktop.github.com/).
 
-![GitHub Desktop Install Link](../img/VersionControl/VersionControl_GHDesktopDownloadLink.png){: .center loading="lazy" }
+![!GitHub Desktop Install Link](../img/VersionControl/VersionControl_GHDesktopDownloadLink.webp){: .center loading="lazy" }
 
 ### Create a GitHub Account
 
@@ -78,7 +78,7 @@ You can add a license, which determines the ways other people are allowed to use
 
 Once you have added the project, you can see all the files that got saved the first time by clicking thing **History** tab. The **Changes** tab shows files that have been changed but not saved using a **commit**, which you will learn how to do in the next section.
 
-![Initial Commit](../img/VersionControl/VersionControl_InitialCommit.png){: .center loading="lazy" }
+![!Initial Commit](../img/VersionControl/VersionControl_InitialCommit.webp){: .center loading="lazy" }
 
 ## Saving Project Changes
 
@@ -122,7 +122,7 @@ Below the changed files, find the **Summary** field. Here is where you write a q
 
 What you write here will be your reference for the most recent changes made, so that if you needed to go back, you would know the state of the project at that point.
 
-![Sample Commit](../img/VersionControl/VersionControl_MakeCommit.png){: .center loading="lazy" }
+![!Sample Commit](../img/VersionControl/VersionControl_MakeCommit.webp){: .center loading="lazy" }
 
 ## Uploading a Project
 
@@ -132,13 +132,13 @@ With a local git repository, you have a saved record of the different stages of 
 
 Once you have committed all your changes, you will see an option suggesting that you publish your repository on GitHub.
 
-![Publish Repository Button](../img/VersionControl/VersionControl_PublishRepoButton.png){: .center loading="lazy" }
+![!Publish Repository Button](../img/VersionControl/VersionControl_PublishRepoButton.webp){: .center loading="lazy" }
 
 Click the **Publish repository** button to open a dialogue to put the project on the GitHub website.
 
 You can change the title, or keep the one from the local repository. Check the **Keep this code private** box if you do not want others to be able to copy the project.
 
-![Publish Repository Dialogue](../img/VersionControl/VersionControl_PublishRepoDialogue.png){: .center loading="lazy" }
+![!Publish Repository Dialogue](../img/VersionControl/VersionControl_PublishRepoDialogue.webp){: .center loading="lazy" }
 
 ### Find the Project on GitHub
 
@@ -146,7 +146,7 @@ With a remote repository, you can see the files of the project, and the history 
 
 Press ++ctrl+shift+G++, or select **Repository** in the top menu bar, and click **View on GitHub** to see the project page.
 
-![GitHub Project Page](../img/VersionControl/VersionControl_GitHubProjectPage.png){: .center loading="lazy" }
+![!GitHub Project Page](../img/VersionControl/VersionControl_GitHubProjectPage.webp){: .center loading="lazy" }
 
 ### Add a README
 
@@ -158,7 +158,7 @@ This step is optional, and probably not necessary if you made your code private.
 
 Click the **Add a README** button at the bottom of the project.
 
-![Create README Button](../img/VersionControl/VersionControl_CreateReadme.png){: .center loading="lazy" }
+![!Create README Button](../img/VersionControl/VersionControl_CreateReadme.webp){: .center loading="lazy" }
 
 This will open a new file that contains the title and description you created for your project. This is written in the **Markdown** language, which allows you to format text in document. [Learn more about writing in Markdown here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
@@ -182,11 +182,11 @@ However, if you added a new README, then currently there are changes on the remo
 
 !!! warning "It is recommended that you close your current game before pulling, otherwise Core might not pick up all of the incoming changes!"
 
-![Pull Origin](../img/VersionControl/VersionControl_PullOriginButton.png){: .center loading="lazy" }
+![!Pull Origin](../img/VersionControl/VersionControl_PullOriginButton.webp){: .center loading="lazy" }
 
 Once the project is finished pulling the changes, click the **History** tab to confirm. You should see the commit message you made to add the README at the top.
 
-![Most Recent Commit in History](../img/VersionControl/VersionControl_ReadmeCommitHistory.png){: .center loading="lazy" }
+![!Most Recent Commit in History](../img/VersionControl/VersionControl_ReadmeCommitHistory.webp){: .center loading="lazy" }
 
 ### Push New Changes
 
@@ -210,11 +210,11 @@ If you are using a project created by someone else, and want to be able to push 
 
 When you click the **Clone** button on a GitHub repository, you will see the option to **Open in Desktop**. Click this to use GitHub desktop to clone.
 
-![Clone with Desktop](../img/VersionControl/VersionControl_CloneDialogue.png){: .center loading="lazy" }
+![!Clone with Desktop](../img/VersionControl/VersionControl_CloneDialogue.webp){: .center loading="lazy" }
 
 Change the location to the **Maps** folder where your other Core projects are stored.
 
-![Core Maps Directory](../img/VersionControl/VersionControl_CloneInDirectory.png){: .center loading="lazy" }
+![!Core Maps Directory](../img/VersionControl/VersionControl_CloneInDirectory.webp){: .center loading="lazy" }
 
 ### Check Core for the Project
 
@@ -234,7 +234,7 @@ The easiest way to avoid this is work on separate parts of the project. **Folder
 
 Up until now, you have only used the default branch, **main**. **Branches** allow you to separate your changes from the main project, and then integrate them back in when you are finished, by **merging**.
 
-![Create a New Branch](../img/VersionControl/VersionControl_NewBranch.png){: .center loading="lazy" }
+![!Create a New Branch](../img/VersionControl/VersionControl_NewBranch.webp){: .center loading="lazy" }
 
 1. Click the **Current branch** tab in the project, which is most likely on **main**.
 2. Select **New branch**, and give the branch the name of the feature that you will be creating on it.
