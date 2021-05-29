@@ -6,6 +6,12 @@ tags:
     - Tutorial
 ---
 
+<style>
+.mt-video {
+    text-align: center;
+}
+</style>
+
 # Build Your First Game In Core
 
 <lite-youtube videoid="-rIbd612sUM" playlabel="Build Your First Game In Core"></lite-youtube>
@@ -33,18 +39,18 @@ To get started, use the **Create** menu to make a new project
 
 ### Click **Create New**
 
-![Create New](../img/MyFirstMultiplayer/CreateNew.png){: .center loading="lazy" }
+![!Create New](../img/MyFirstMultiplayer/CreateNew.webp){: .center loading="lazy" }
 
 1. With Core open, click the **Create** Tab on the left side menu.
 2. Click **Create New Game**.
 
 ### Select the **Deathmatch** framework
 
-![Deathmatch](../img/MyFirstMultiplayer/Deathmatch.png){: .center loading="lazy" }
+![!Deathmatch](../img/MyFirstMultiplayer/Deathmatch.webp){: .center loading="lazy" }
 
 <!-- ### Create a new Project
 
-![Name](../img/MyFirstMultiplayer/MyFirstMultiplayerGame.png){: .center loading="lazy" } -->
+![!Name](../img/MyFirstMultiplayer/MyFirstMultiplayerGame.webp){: .center loading="lazy" } -->
 
 1. Click **View Frameworks** in the **Core Game Frameworks** option.
 2. Click **Deathmatch**.
@@ -55,7 +61,7 @@ To get started, use the **Create** menu to make a new project
 
 The Deathmatch framework gives you a complete game arena and shooter functionality out of the box.
 
-![Whitebox](../img/MyFirstMultiplayer/WhiteboxMapMarked.jpg){: .center loading="lazy" }
+![!Whitebox](../img/MyFirstMultiplayer/WhiteboxMapMarked.jpg){: .center loading="lazy" }
 
 ### Test Player Movement
 
@@ -79,12 +85,13 @@ Besides player movement, **Deathmatch** also gives each player a gun to shoot, a
 - Shoot the default gun with the left mouse button.
 - Open and close a door with ++F++.
 
-![PlayMode](../img/MyFirstMultiplayer/PlayMode.jpg){: .center loading="lazy" }
+![!PlayMode](../img/MyFirstMultiplayer/PlayMode.jpg){: .center loading="lazy" }
 
 ### Test Multiplayer Gameplay
 
 Core projects also include multiplayer networking by default. Because this is a crucial component of this game, it is important to test using **Multiplayer Preview Mode** as much as possible.
-![TwoPlayers](../img/MyFirstMultiplayer/TwoPlayers.png){: .center loading="lazy" }
+
+![!TwoPlayers](../img/MyFirstMultiplayer/TwoPlayers.png){: .center loading="lazy" }
 
 1. Click ![Multiplayer Preview Mode](../img/EditorManual/icons/Icon_MultiplayerTest.png) to switch the Preview Mode to Multiplayer.
     {: .image-inline-text .image-background }
@@ -92,7 +99,7 @@ Core projects also include multiplayer networking by default. Because this is a 
 2. Press ![Play](../img/EditorManual/icons/Icon_Play.png) to start the preview. This will open a separate game window for each player.
     {: .image-inline-text .image-background }
 
-    ![MPPreview](../img/MyFirstMultiplayer/MultiplayerPreviewPlay.png){: .center loading="lazy" }
+![!MPPreview](../img/MyFirstMultiplayer/MultiplayerPreviewPlay.png){: .center loading="lazy" }
 
 !!! tip
      You can use ++Alt+enter++ to toggle between fullscreen and windowed mode. You can also use ++Win+Arrow++ to dock the screens side by side.
@@ -209,7 +216,7 @@ You can continue using these techniques to complete the appearance of your Death
 - `window insert`
 - `floor`
 
-![FinishArt](../img/MyFirstMultiplayer/FinishArt.jpg){: .center loading="lazy" }
+![!FinishArt](../img/MyFirstMultiplayer/FinishArt.jpg){: .center loading="lazy" }
 
 !!! info
     You can customize materials and how they apply to objects. Learn more in the [Custom Material Tutorial](custom_materials.md).
@@ -261,7 +268,7 @@ Let's move the "Player Start" where players spawn to be further apart. Press ++V
 1. Search for **Spawn Point** in the **Hierarchy**.
 2. Move the spawn points around the map the same way you would any object.
 
-![PlayerSpawn](../img/MyFirstMultiplayer/PlayerSpawn.jpg){: .center loading="lazy" }
+![!PlayerSpawn](../img/MyFirstMultiplayer/PlayerSpawn.jpg){: .center loading="lazy" }
 
 !!! tip
     Press ++0++ to create a spawn point at your cursor's location. There are more [Editor Shortcuts](editor_keybindings.md) that can streamline your game creation flow.
