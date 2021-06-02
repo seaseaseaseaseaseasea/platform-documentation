@@ -6,6 +6,12 @@ tags:
     - Tutorial
 ---
 
+<style>
+.mt-video {
+    text-align: center;
+}
+</style>
+
 # Développez votre premier jeu dans Core
 
 <lite-youtube videoid="-rIbd612sUM" playlabel="Build Your First Game In Core"></lite-youtube>
@@ -33,18 +39,18 @@ Pour commencer, utilisez le menu **Create** pour démarrer un nouveau projet.
 
 ### Cliquer sur **Create new**
 
-![Create new](../img/MyFirstMultiplayer/CreateNew.png){: .center loading="lazy" }
+![Create new](../img/MyFirstMultiplayer/CreateNew.webp){: .center loading="lazy" }
 
 1. Lorsque Core est ouvert, cliquez sur l'onglet **Create** dans le menu de gauche.
 2. Cliquer sur **Create New Game**
 
 ### Sélectionner le modèle **Deathmatch**
 
-![Deathmatch](../img/MyFirstMultiplayer/Deathmatch.png){: .center loading="lazy" }
+![Deathmatch](../img/MyFirstMultiplayer/Deathmatch.webp){: .center loading="lazy" }
 
 <!-- ### Create a new Project
 
-![Nom](../img/MyFirstMultiplayer/MyFirstMultiplayerGame.png){: .center loading="lazy" } -->
+![Nom](../img/MyFirstMultiplayer/MyFirstMultiplayerGame.webp){: .center loading="lazy" } -->
 
 1. Cliquez sur **View Frameworks** sous l'option **Core Game Frameworks**.
 2. Cliquez sur **Deathmatch** (match à mort).
@@ -55,7 +61,7 @@ Pour commencer, utilisez le menu **Create** pour démarrer un nouveau projet.
 
 Le modèle Match à mort vous fournit une arène de jeu complète et toutes les fonctionnalités d'un jeu de tir, prêtes à l'emploi.
 
-![Whitebox](../img/MyFirstMultiplayer/WhiteboxMapMarked.jpg){: .center loading="lazy" }
+![Whitebox](../img/MyFirstMultiplayer/WhiteboxMapMarked.webp){: .center loading="lazy" }
 
 ### Tester le déplacement des joueurs
 
@@ -92,7 +98,7 @@ Les projets Core sont par défaut dotés d'une fonctionnalité réseau multijoue
 2. Appuyez sur ![Play](../img/EditorManual/icons/Icon_Play.png) pour lancer l'aperçu. Cela ouvrira une fenêtre de jeu pour chaque participant.
     {: .image-inline-text .image-background}
 
-    ![MPPreview](../img/MyFirstMultiplayer/MultiplayerPreviewPlay.png){: .center loading="lazy" }
+    ![MPPreview](../img/MyFirstMultiplayer/MultiplayerPreviewPlay.webp){: .center loading="lazy" }
 
 !!! tip
      Vous pouvez utiliser ++Alt+enter++ pour alterner entre le mode plein écran et fenêtré. Vous pouvez également utiliser ++Win+Arrow++ pour coller les écrans côte à côte.
@@ -209,7 +215,7 @@ Vous pouvez continuer à employer ces techniques pour parachever l'aspect visuel
 - `window insert`
 - `floor`
 
-![FinishArt](../img/MyFirstMultiplayer/FinishArt.jpg){: .center loading="lazy" }
+![FinishArt](../img/MyFirstMultiplayer/FinishArt.webp){: .center loading="lazy" }
 
 !!! info
     Vous pouvez personnaliser les matériaux et leur application aux objets. Plus d'informations dans le tutoriel sur la personnalisation des matériaux [Custom Material Tutorial](custom_materials.md).
@@ -261,7 +267,7 @@ Déplaçons le "point de départ des joueurs" afin que les joueurs apparaissent 
 1. Cherchez la section **Spawn Point** dans la **Hierarchy**.
 2. Déplacez les points d'apparition sur la carte, comme n'importe quel autre objet.
 
-![PlayerSpawn](../img/MyFirstMultiplayer/PlayerSpawn.jpg){: .center loading="lazy" }
+![PlayerSpawn](../img/MyFirstMultiplayer/PlayerSpawn.webp){: .center loading="lazy" }
 
 !!! tip
     Appuyez sur ++0++ pour créer un point d'apparition à l'emplacement de votre curseur. D'autres [raccourcis de l'Éditeur](editor_keybindings.md) permettent de simplifier la création de votre jeu.
