@@ -133,6 +133,7 @@ Player is an object representation of the state of a player connected to the gam
 | `SetPrivateNetworkedData(string key, value)` | [`PrivateNetworkedDataResultCode`](enums.md#privatenetworkeddataresultcode) | Sets the private networked data for this player associated with the key. Value can be any type that could be sent with a networked event. Each key is replicated independently, and this data is only sent to the owning player. | Server-Only |
 | `GetPrivateNetworkedData(string key)` | `value` | Returns the private networked data on this player associated with the given key or nil if no data is found. | None |
 | `GetPrivateNetworkedDataKeys()` | `Array<string>` | Returns an array of all keys with private data set. | None |
+| `GrantRewardPoints(int rewardPoints, string activityName)` | `None` | Adds an amount of Reward Points to a player for completing a certain activity. | Server-Only |
 
 ## Events
 
@@ -821,6 +822,51 @@ player:SetWorldTransform(originalTransform)
 ```
 
 See also: [Rotation.New](rotation.md) | [Vector3.UP](vector3.md)
+
+---
+
+Example using:
+
+### `GrantRewardPoints`
+
+In this example, a player receives a daily reward of 100 points (RP) when they join the game. The reward name can be anything, so we use "Daily" here, to identify it. Lua's os.date() system is used in conjunction with Storage, to figure out if this is the first time the player has joined today.
+
+```lua
+local REWARD_AMOUNT = 100
+local REWARD_NAME = "Daily"
+
+function IsFirstJoinToday(player)
+    local today = os.date("*t")
+    local day = today.day
+    local month = today.month
+    
+    print("Day = " .. day)
+    print("Month = " .. month)
+    
+    local data = Storage.GetPlayerData(player)
+    if day ~= data.lastJoinDay 
+    or month ~= data.lastJoinMonth then
+        data.lastJoinDay = day
+        data.lastJoinMonth = month
+        Storage.SetPlayerData(player, data)
+        return true
+    end
+    return false
+end
+
+function OnPlayerJoined(player)
+    if IsFirstJoinToday(player) then
+        player:GrantRewardPoints(REWARD_AMOUNT, REWARD_NAME)
+        print("Awarded")
+    else
+        print("Not awarded")
+    end
+end
+
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+```
+
+See also: [Storage.GetPlayerData](storage.md) | [Game.playerJoinedEvent](game.md)
 
 ---
 
