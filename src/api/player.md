@@ -844,12 +844,12 @@ function IsFirstJoinToday(player)
     local today = os.date("*t")
     local day = today.day
     local month = today.month
-    
+
     print("Day = " .. day)
     print("Month = " .. month)
-    
+
     local data = Storage.GetPlayerData(player)
-    if day ~= data.lastJoinDay 
+    if day ~= data.lastJoinDay
     or month ~= data.lastJoinMonth then
         data.lastJoinDay = day
         data.lastJoinMonth = month
@@ -1177,6 +1177,42 @@ See also: [Game.GetPlayers](game.md) | [CoreLua.print](coreluafunctions.md) | [T
 
 Example using:
 
+### `isInParty`
+
+### `isPartyLeader`
+
+### `IsInPartyWith`
+
+This example will teleport any players to their team leader if the leader is connected.
+
+```lua
+function OnPlayerJoined(player)
+    -- If the player is not in a party, stop here
+    if not player.isInParty then
+        return
+    end
+
+    local players = Game.GetPlayers()
+    -- Go through each player
+    for _, p in ipairs(players) do
+        -- If the other player is the leader
+        if p ~= player and p:IsInPartyWith(player) and p.isPartyLeader then
+            -- Teleport the player to the leader
+            player:SetWorldPosition(p:GetWorldPosition())
+            return
+        end
+    end
+end
+
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+```
+
+See also: [Game.playerJoinedEvent](game.md) | [Player:IsInPartyWith](player.md)
+
+---
+
+Example using:
+
 ### `isVisibleToSelf`
 
 It's possible to hide the player's model from the player controlling it. This can be especially useful for first-person games. Note that this can only be set by scripts running in the client context!
@@ -1449,7 +1485,7 @@ Example using:
 
 Perks are a system to create in-game purchases that allow players to support game creators and enable exclusive content.
 
-Learn more about Perks [here](https://docs.coregames.com/perks/perks/).
+Learn more about Perks [here](https://docs.coregames.com/references/perks/program/).
 
 Repeatable Perks - This type of Perk can be purchased any number of times by players. In this example, we implement the sale of in game currency through multiple bundles and track the purchases using storage and resources. This script will track each Perk bundle to grant users the currency/resource.
 
@@ -1563,7 +1599,7 @@ Example using:
 
 Perks are a system to create in-game purchases that allow players to support game creators and enable exclusive content.
 
-Learn more about Perks [here](https://docs.coregames.com/perks/perks/).
+Learn more about Perks [here](https://docs.coregames.com/references/perks/program/).
 
 In the following example, a script is a child of a Perk Purchase Button, of type `UIPerkPurchaseButton`. The user interface container that has the button is in a client context. The specifics of the Perk come in through the custom property `MyPerk`, which is then assigned to the button with `SetPerkReference()`. When the player joins we connect to the `perkChangedEvent` and print out their existing perks with the LogPerks() function.
 
