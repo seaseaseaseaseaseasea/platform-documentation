@@ -35,7 +35,7 @@ Each Player (on their client) can have a default Camera and an override Camera. 
 | `minYaw` | `number` | The minimum yaw for free control. | Read-Write |
 | `maxYaw` | `number` | The maximum yaw for free control. | Read-Write |
 | `useAsAudioListener` | `boolean` | Whether the local player's audio should be attenuated and spatialized based on their view position while this is the active camera. | Read-Write |
-| `audioListenerOffset` | [`Vector3`](vector3.md) | The local offset to the view position when using this camera as the audio listener. | Read-Write |
+| `audioListenerOffset` | [`Vector3`](vector3.md) | This property is deprecated. Please use the GetAudioListenerOffset() and SetAudioListenerOffset() functions instead. | Read-Write, **Deprecated** |
 
 ## Functions
 
@@ -45,8 +45,69 @@ Each Player (on their client) can have a default Camera and an override Camera. 
 | `SetPositionOffset(Vector3)` | `None` | An offset added to the camera or follow target's eye position to the Player's view. | None |
 | `GetRotationOffset()` | [`Rotation`](rotation.md) | A rotation added to the camera or follow target's eye position. | None |
 | `SetRotationOffset(Rotation)` | `None` | A rotation added to the camera or follow target's eye position. | None |
+| `GetAudioListenerOffset()` | [`Vector3`](vector3.md) | Returns the local offset to the view position when using this camera as the audio listener. | None |
+| `SetAudioListenerOffset(Vector3)` | `None` | Sets the local offset to the view position when using this camera as the audio listener. | None |
+| `Capture(CameraCaptureResolution, [table optionalParameters])` | [`CameraCapture`](cameracapture.md) | Captures an image at the specified resolution using this camera. Returns a `CameraCapture` object that may be used to display this image or refresh the capture. May return `nil` if the maximum number of capture instances at the desired resolution has been exceeded. The optional parameter table is currently unused. | Client-Only |
 
 ## Examples
+
+Example using:
+
+### `Capture`
+
+### `IsValid`
+
+### `Refresh`
+
+This example uses the Camera's `Capture()` and `Refresh()` to implement a rear-view mirror that appears when the player is using a vehicle. For the UI image to look correct, it should have equal width and height, as well as `Flip Horizontal` enabled.
+
+```lua
+local CAMERA = script:GetCustomProperty("Camera"):WaitForObject()
+local UI_ROOT = script:GetCustomProperty("Root"):WaitForObject()
+local IMAGE = script:GetCustomProperty("UIImage"):WaitForObject()
+local PLAYER = Game.GetLocalPlayer()
+
+local OFFSET_UP = 150
+local OFFSET_BACK = -310
+
+local camCapture = nil
+
+function Capture()
+    if camCapture and camCapture:IsValid() then
+        camCapture:Refresh()
+    else
+        camCapture = CAMERA:Capture(CameraCaptureResolution.MEDIUM)
+        IMAGE:SetCameraCapture(camCapture)
+    end
+end
+
+function Tick()
+    if Object.IsValid(PLAYER.occupiedVehicle) then
+        -- Rotate the camera so it's looking back
+        local rot = PLAYER.occupiedVehicle:GetWorldRotation()
+        local q = Quaternion.New(rot)
+        local upVector = q:GetUpVector()
+        local forwardVector = q:GetForwardVector()
+        rot = Rotation.New(-forwardVector, upVector)
+        CAMERA:SetWorldRotation(rot)
+        -- Position the camera relative to the vehicle
+        local pos = PLAYER.occupiedVehicle:GetWorldPosition()
+        pos = pos + upVector * OFFSET_UP + forwardVector * OFFSET_BACK
+        CAMERA:SetWorldPosition(pos)
+        -- Update the image
+        Capture()
+        -- Player is in a vehicle, enable visibility of the mirror
+        UI_ROOT.visibility = Visibility.INHERIT
+    else
+        -- Hide the rear-view mirror, as the player is not in a vehicle
+        UI_ROOT.visibility = Visibility.FORCE_OFF
+    end
+end
+```
+
+See also: [UIImage.SetCameraCapture](uiimage.md) | [Game.GetLocalPlayer](game.md) | [Player.occupiedVehicle](player.md) | [Quaternion.GetForwardVector](quaternion.md) | [CoreObject.visibility](coreobject.md)
+
+---
 
 Example using:
 
