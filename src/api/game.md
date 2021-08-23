@@ -32,6 +32,8 @@ Game is a collection of functions and events related to players in the game, rou
 | `Game.TransferAllPlayersToGame(string gameId)` | `None` | Similar to `Player:TransferToGame()`, transfers all players to the game specified by the passed in game ID. Does not work in preview mode or in games played locally. | Server-Only |
 | `Game.TransferAllPlayersToGame(CoreGameInfo)` | `None` | Similar to `Player:TransferToGame()`, transfers all players to the game specified by the passed in `CoreGameInfo`. Does not work in preview mode or in games played locally. | Server-Only |
 | `Game.TransferAllPlayersToGame(CoreGameCollectionEntry)` | `None` | Similar to `Player:TransferToGame()`, transfers all players to the game specified by the passed in `CoreGameCollectionEntry`. Does not work in preview mode or in games played locally. | Server-Only |
+| `Game.TransferAllPlayersToScene(string sceneName)` | `None` | Similar to `Player:TransferToScene()`, transfers all players to the scene specified by the passed in scene name. Does not work in preview mode or in games played locally. <br/>The following optional parameters are supported:<br/>`spawnKey (string)`: Spawns the players at a spawn point with a matching key. If an invalid key is provided, the players will spawn at the origin, (0, 0, 0). | Server-Only |
+| `Game.GetCurrentSceneName()` | `string` | Returns the name of the current scene. | None |
 
 ## Events
 
@@ -91,7 +93,7 @@ end
 
 Game.playerJoinedEvent:Connect(function(player)
     playerId = player.id
-    
+
     Task.Spawn(CheckLater, 5)
 end)
 ```
@@ -315,6 +317,51 @@ Game.teamScoreChangedEvent:Connect(OnTeamScoreChanged)
 ```
 
 See also: [Game.GetTeamScore](game.md) | [Event.Connect](event.md) | [Task.Wait](task.md) | [CoreLua.print](coreluafunctions.md)
+
+---
+
+Example using:
+
+### `GetCurrentSceneName`
+
+This example shows how to get the name of the current scene that the player is in.
+
+When a player joins the game, the name of the current scene is printed to the **Event Log**.
+
+```lua
+local function OnPlayerJoined(player)
+    print("Player is in scene: ", Game.GetCurrentSceneName())
+end
+
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+```
+
+See also: [Player.TransferToScene](player.md)
+
+---
+
+Example using:
+
+### `TransferAllPlayersToScene`
+
+In this example, after 10 seconds, all players in the game will be transferred to another scene.
+
+This could be useful after the players in game have defeated a boss, they could all be transferred back to the main lobby.
+
+```lua
+local bossKilled = true -- Set true for testing
+
+-- If bossKilled is true, after 10 seconds transfer all players
+-- to the Lobby scene.
+
+if bossKilled then
+    Task.Spawn(function()
+        Game.TransferAllPlayersToScene("Lobby")
+    end, 10)
+end
+```
+
+See also: [Player.TransferToScene](player.md)
 
 ---
 

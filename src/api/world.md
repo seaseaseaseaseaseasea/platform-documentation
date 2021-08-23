@@ -20,9 +20,46 @@ World is a collection of functions for finding objects in the world.
 | `World.FindObjectByName(string typeName)` | [`CoreObject`](coreobject.md) | Returns the first object found with a matching name. In none match, nil is returned. | None |
 | `World.FindObjectById(string muid)` | [`CoreObject`](coreobject.md) | Returns the object with a given MUID. Returns nil if no object has this ID. | None |
 | `World.SpawnAsset(string assetId, [table parameters])` | [`CoreObject`](coreobject.md) | Spawns an instance of an asset into the world. Optional parameters can specify a parent for the spawned object. Supported parameters include: parent (CoreObject) <br /> If provided, the spawned asset will be a child of this parent, and any Transform parameters are relative to the parent's Transform; `position (Vector3)`: Position of the spawned object; `rotation (Rotation or Quaternion)`: Rotation of the spawned object; `scale (Vector3)`: Scale of the spawned object. | None |
-| `World.Raycast(Vector3 rayStart, Vector3 rayEnd, [table parameters])` | [`HitResult`](hitresult.md) | Traces a ray from `rayStart` to `rayEnd`, returning a `HitResult` with data about the impact point and object. Returns `nil` if no intersection is found. <br /> Optional parameters can be provided to control the results of the Raycast: `ignoreTeams (integer or Array<integer>)`: Don't return any players belonging to the team or teams listed; `ignorePlayers (Player, Array<Player>, or boolean)`: Ignore any of the players listed. If `true`, ignore all players. | None |
+| `World.Raycast(Vector3 startPosition, Vector3 endPosition, [table parameters])` | [`HitResult`](hitresult.md) | Traces a ray from `startPosition` to `endPosition`, returning a `HitResult` with data about the impact point and object. Returns `nil` if no intersection is found. Note that if a raycast starts inside an object, that object will not be returned by the raycast. <br /> Optional parameters can be provided to control the results of the Raycast:<br/>`ignoreTeams (integer or Array<integer>)`: Don't return any players belonging to the team or teams listed. <br/>`ignorePlayers (Player, Array<Player>, or boolean)`: Ignore any of the players listed. If `true`, ignore all players. <br/>`checkObjects (Object, Array<Object>)`: Only return results that are contained in this list. <br/>`ignoreObjects (Object, Array<Object>)`: Ignore results that are contained in this list. <br/>`shouldDebugRender (boolean)`: If `true`, enables visualization of the raycast in world space for debugging. <br/>`debugRenderDuration (number)`: Number of seconds for which debug rendering should remain on screen. Defaults to 1 second. <br/>`debugRenderThickness (number)`: The thickness of lines drawn for debug rendering. Defaults to 1. <br/>`debugRenderColor (Color)`: Overrides the color of lines drawn for debug rendering. If not specified, multiple colors may be used to indicate where results were hit. | None |
+| `World.RaycastAll(Vector3 startPosition, Vector3 endPosition, [table parameters])` | `Array<`[`HitResult`](hitresult.md)`>` | Traces a ray from `startPosition` to `endPosition`, returning a list of `HitResult` instances with data about all objects found along the ray. Returns an empty table if no intersection is found. Note that if a raycast starts inside an object, that object will not be returned by the raycast. Optional parameters can be provided to control the results of the raycast using the same parameters supported by `World.Raycast()`. | None |
+| `World.Spherecast(Vector3 startPosition, Vector3 endPosition, number radius, [table parameters])` | [`HitResult`](hitresult.md) | Traces a sphere with the specified radius from `startPosition` to `endPosition`, returning a `HitResult` with data about the first object hit along the way. Returns `nil` if no intersection is found. Note that a sphere cast starting entirely inside an object with complex collision may not return that object. Optional parameters can be provided to control the results of the sphere cast using the same parameters supported by `World.Raycast()`. | None |
+| `World.SpherecastAll(Vector3 startPosition, Vector3 endPosition, number radius, [table parameters])` | `Array<`[`HitResult`](hitresult.md)`>` | Traces a sphere with the specified radius from `startPosition` to `endPosition`, returning a list of `HitResult` instances with data about all objects found along the path of the sphere. Returns an empty table if no intersection is found. Note that a sphere cast starting entirely inside an object with complex collision may not return that object. Optional parameters can be provided to control the results of the sphere cast using the same parameters supported by `World.Raycast()`. | None |
+| `World.Boxcast(Vector3 startPosition, Vector3 endPosition, Vector3 boxSize, [table parameters])` | [`HitResult`](hitresult.md) | Traces a box with the specified size from `startPosition` to `endPosition`, returning a `HitResult` with data about the first object hit along the way. Returns `nil` if no intersection is found. Note that a box cast starting entirely inside an object with complex collision may not return that object. Optional parameters can be provided to control the results of the box cast using the same parameters supported by `World.Raycast()`, as well as the following additional parameters: <br/>`shapeRotation (Rotation)`: Rotation of the box shape being cast. Defaults to (0, 0, 0). <br/>`isWorldShapeRotation (boolean)`: If `true`, the `shapeRotation` parameter specifies a rotation in world space, or if no `shapeRotation` is provided, the box will be axis-aligned. Defaults to `false`, meaning the rotation of the box is relative to the direction in which it is being cast. | None |
+| `World.BoxcastAll(Vector3 startPosition, Vector3 endPosition, Vector3 boxSize, [table parameters])` | `Array<`[`HitResult`](hitresult.md)`>` | Traces a box with the specified size from `startPosition` to `endPosition`, returning a list of `HitResult` instances with data about all objects found along the path of the box. Returns an empty table if no intersection is found. Note that a box cast starting entirely inside an object with complex collision may not return that object. Optional parameters can be provided to control the results of the box cast using the same parameters supported by `World.Raycast()` and `World.Boxcast()`. | None |
 
 ## Examples
+
+Example using:
+
+### `Boxcast`
+
+In this example any object that the player looks at will be outlined using an Outline Object. This is done using World.Boxcast(), which returns a hitResult with the impacted object. Using a Boxcast here is useful because the player doesn't have to look directly at an object for it to be highlighted but just close to it.
+
+```lua
+local OutlineObject = script:GetCustomProperty("OutlineObject"):WaitForObject()
+
+local LOCAL_PLAYER = Game.GetLocalPlayer()
+local viewedObject = nil
+
+function Tick()
+    local rayStart = LOCAL_PLAYER:GetViewWorldPosition()
+    local lookVector = LOCAL_PLAYER:GetViewWorldRotation() * Vector3.FORWARD
+    local hitResult = World.Boxcast(rayStart, rayStart + (lookVector * 5000), Vector3.New(30), {ignorePlayers=LOCAL_PLAYER})
+
+    if hitResult and not hitResult.other:IsA("Player") and hitResult.other ~= viewedObject then
+        OutlineObject:SetSmartProperty("Object To Outline", hitResult.other)
+        OutlineObject:SetSmartProperty("Enabled", true)
+        viewedObject = hitResult.other
+    elseif not hitResult then
+        OutlineObject:SetSmartProperty("Enabled", false)
+        viewedObject = nil
+    end
+end
+```
+
+See also: [Player.GetViewWorldPosition](player.md) | [Damage.New](damage.md) | [CoreLua.Tick](coreluafunctions.md)
+
+---
 
 Example using:
 
@@ -174,6 +211,43 @@ See also: [HitResult.GetImpactPosition](hitresult.md) | [CoreObject.GetCustomPro
 
 Example using:
 
+### `RaycastAll`
+
+This example allows player's to damage other players that they are aiming at. This is done using World.RaycastAll(), which returns a table of hitResults. This means that if multiple players are in a line then all of those players will be damaged. A good usecase for this function would be for a laser gun.
+
+```lua
+function OnBindingPressed(player, binding)
+    if binding == "ability_primary" then
+        local rayStart = player:GetViewWorldPosition()
+        local lookVector = player:GetViewWorldRotation() * Vector3.FORWARD
+        local results = World.RaycastAll(rayStart, rayStart + (lookVector * 5000), {ignorePlayers=player, shouldDebugRender = true})
+
+        for _, hitResult in ipairs(results) do
+            if hitResult.other:IsA("Player") then
+                if not hitResult.other.isDead then
+                    local dmg = Damage.New(10)
+                    hitResult.other:ApplyDamage(dmg)
+                end
+            else
+                break
+            end
+        end
+    end
+end
+
+function OnPlayerJoined(player)
+    player.bindingPressedEvent:Connect(OnBindingPressed)
+end
+
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+```
+
+See also: [Player.GetViewWorldPosition](player.md) | [Damage.New](damage.md)
+
+---
+
+Example using:
+
 ### `SpawnAsset`
 
 In this example, whenever a player dies, an explosion VFX template is spawned  in their place and their body is flown upwards. The SpawnAsset() function also returns a reference to the new object, which allows us to do any number of adjustments to it--in this case a custom life span. This example assumes an explosion template exists in the project and it was added as a custom property onto the script object.
@@ -216,5 +290,74 @@ image.dock = UIPivot.MIDDLE_CENTER
 ```
 
 See also: [UIControl.anchor](uicontrol.md) | [CoreObject.GetCustomProperty](coreobject.md)
+
+---
+
+Example using:
+
+### `Spherecast`
+
+In this example any object that the player looks at will be outlined using an Outline Object. This is done using World.Spherecast(), which returns a hitResult with the impacted object. Using a Spherecast here is useful because the player doesn't have to look directly at an object for it to be highlighted but just close to it.
+
+```lua
+local OutlineObject = script:GetCustomProperty("OutlineObject"):WaitForObject()
+
+local LOCAL_PLAYER = Game.GetLocalPlayer()
+local viewedObject = nil
+
+function Tick()
+    local rayStart = LOCAL_PLAYER:GetViewWorldPosition()
+    local lookVector = LOCAL_PLAYER:GetViewWorldRotation() * Vector3.FORWARD
+    local hitResult = World.Spherecast(rayStart, rayStart + (lookVector * 5000), 30, {ignorePlayers=LOCAL_PLAYER})
+
+    if hitResult and not hitResult.other:IsA("Player") and hitResult.other ~= viewedObject then
+        OutlineObject:SetSmartProperty("Object To Outline", hitResult.other)
+        OutlineObject:SetSmartProperty("Enabled", true)
+        viewedObject = hitResult.other
+    elseif not hitResult then
+        OutlineObject:SetSmartProperty("Enabled", false)
+        viewedObject = nil
+    end
+end
+```
+
+See also: [Player.GetViewWorldPosition](player.md) | [Damage.New](damage.md) | [CoreLua.Tick](coreluafunctions.md)
+
+---
+
+Example using:
+
+### `SpherecastAll`
+
+This example allows player's to damage other players that they are aiming at. This is done using World.SpherecastAll(), which returns a table of hitResults. This means that if multiple players are in a line then all of those players will be damaged. A good usecase for this function would be for a laser gun.
+
+```lua
+function OnBindingPressed(player, binding)
+    if binding == "ability_primary" then
+        local rayStart = player:GetViewWorldPosition()
+        local lookVector = player:GetViewWorldRotation() * Vector3.FORWARD
+        local results = World.SpherecastAll(rayStart, rayStart + (lookVector * 5000), 50, {ignorePlayers=player, shouldDebugRender = true})
+
+        for _, hitResult in ipairs(results) do
+            if hitResult.other:IsA("Player") then
+                if not hitResult.other.isDead then
+                    local dmg = Damage.New(10)
+                    hitResult.other:ApplyDamage(dmg)
+                end
+            else
+                break
+            end
+        end
+    end
+end
+
+function OnPlayerJoined(player)
+    player.bindingPressedEvent:Connect(OnBindingPressed)
+end
+
+Game.playerJoinedEvent:Connect(OnPlayerJoined)
+```
+
+See also: [Player.GetViewWorldPosition](player.md) | [Damage.New](damage.md)
 
 ---
