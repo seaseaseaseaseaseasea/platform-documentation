@@ -7,7 +7,7 @@ mkdocs-redirects==1.0.3
 mkdocs==1.2.2
 pygments==2.10.0
 pymdown-extensions==8.2.0
-https://github.com/ultrabug/mkdocs-static-i18n/archive/issue_48.zip
+https://github.com/ultrabug/mkdocs-static-i18n/archive/sitemap.zip
 mkdocs-minify-plugin==0.4.0
 ./mkdocs-material
 
