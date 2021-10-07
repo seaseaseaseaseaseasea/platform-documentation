@@ -206,8 +206,8 @@ end
 ```lua linenums="1"
 local startPosition = START_POSITIONS:GetChildren()[math.random(#START_POSITIONS:GetChildren())]
 
-p:SetWorldPosition(startPosition:GetWorldPosition())
-p:SetWorldRotation(startPosition:GetWorldRotation())
+currentPlayer:SetWorldPosition(startPosition:GetWorldPosition())
+currentPlayer:SetWorldRotation(startPosition:GetWorldRotation())
 ```
 
 To place players randomly along the start line, you can select a random child from `START_POSITIONS`. The rotation of the child is also used for the player to make sure the player character is facing down the track.
