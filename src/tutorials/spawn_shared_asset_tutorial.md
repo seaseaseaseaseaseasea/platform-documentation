@@ -218,7 +218,7 @@ end
 
 1. The `finishArea` parameter is the spawned asset that is passed in from the `CreatePuzzle` function.
 2. Get the center position between the starting area and finish area.
-3. Scale the trigger so that it matches the puzzle area, but include a bit of padding to prevent players jumping further then the dimensions of the trigger.
+3. Scale the trigger so that it matches the puzzle area, but include a bit of padding to prevent players jumping further than the dimensions of the trigger.
 4. Move the trigger down in the world by applying a negative `up` direction.
 5. Connect the `beginOverlapEvent` to detect when the player has entered the trigger volume.
 
