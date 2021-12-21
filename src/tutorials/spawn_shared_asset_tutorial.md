@@ -808,7 +808,7 @@ local TRIGGER = script:GetCustomProperty("Trigger"):WaitForObject()
 
 ### Create OnEnterTrigger Function
 
-The `OnEnterTrigger` function will check what environment.
+The `OnEnterTrigger` function will check what environment the script is in.
 
 - If the script is being run in the server environment, then it will restart the game.
 - If the script is being run in the client environment, then it will play the finish area effect.
