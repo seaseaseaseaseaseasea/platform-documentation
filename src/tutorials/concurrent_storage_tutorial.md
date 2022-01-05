@@ -168,7 +168,7 @@ local SCENES_LOOKUP = require(script:GetCustomProperty("ScenesLookup"))
 
 ##### Check if Key is Assigned
 
-Because references can be changed, it is a good idea to make sure the concurrent storage key is assigned and not missing. This can be done by checking the property `isAssigned` and converting the `TOTAL_PLAYERS_KEY` to a string to check if is a missing reference. Even if the property is a missing reference, `isAssigned` will return true, so you need this extra check to ensure that you have both.
+Because references can be changed, it is a good idea to make sure the concurrent storage key is assigned and not missing. This can be done by checking the property `isAssigned` and converting the `TOTAL_PLAYERS_KEY` to a string to check if it is a missing reference. Even if the property is a missing reference, `isAssigned` will return true, so you need this extra check to ensure that you have both.
 
 ```lua
 if not TOTAL_PLAYERS_KEY.isAssigned or tostring(TOTAL_PLAYERS_KEY) == "Unknown NetReference" then
