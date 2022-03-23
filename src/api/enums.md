@@ -233,7 +233,7 @@ tags:
 | `PlayerTransferReason.SOCIAL` | `5` | Player joined a friend in a game via the social panel. |
 | `PlayerTransferReason.PORTAL` | `6` | Player used a portal from one game to another (or otherwise made use of the `TransferToGame()` function.) |
 | `PlayerTransferReason.AFK` | `7` | Player was disconnected for being AFK. |
-| `PlayerTransferReason.EXIT` | `8` | Player exited Core. Core was sad. |
+| `PlayerTransferReason.EXIT` | `8` | Player exited Core. |
 | `PlayerTransferReason.PORTAL_SCENE` | `9` | Player used a portal from one scene to another (or otherwise made use of the `TransferToScene()` function.) |
 
 ## PrivateNetworkedDataResultCode
